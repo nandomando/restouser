@@ -1,0 +1,29 @@
+.auth-background {
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7) ), url('../img/food-restaurant.jpg');
+    background-position:center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.7);
+    flex-direction: column;
+    justify-content: stretch;
+}
+
+.hero {
+    opacity: 0.87;
+}
+
+// .log {
+//     background: url('../img/logoresto.png');
+//     height: 400px;
+// }
+
+
+.container-top {
+    height: 50vh;
+}
+.container-form {
+    height: 100%;
+    bottom: 0;
+}

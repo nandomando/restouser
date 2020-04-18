@@ -1,0 +1,91 @@
+
+
+<!-- <ion-toolbar>
+  <ion-title class="ion-text-center">{{ isLogin ? 'Login' : 'Signup' }}</ion-title>
+</ion-toolbar> -->
+
+<ion-content padding>
+  <div class="auth-background">
+    <div class="container-top">
+      <div class="logo">
+        <img src="logoresto.png">
+      </div>
+    </div>
+    <div class="container-form">
+      <form style="position: absolute; bottom: inherit; width: 100%;" #f="ngForm" (ngSubmit)="onSubmit(f)">
+        <ion-grid>
+          <ion-row>
+            <ion-col class="hero"  size-sm="6" offset-sm="3">
+              <ion-list style="border-radius: 30px; z-index: 2;">
+                <ion-item>
+                  <ion-label  position="floating">E-Mail</ion-label>
+                  <ion-input
+                    (ionInput)="emailgetter($event)"
+                    type="email"
+                    ngModel
+                    name="email"
+                    required
+                    autocomplete
+                    email
+                    #emailCtrl="ngModel"
+                  ></ion-input>
+                </ion-item>
+                <ion-item
+                  *ngIf="!emailCtrl.valid && emailCtrl.touched"
+                  lines="none"
+                >
+                  <ion-label>
+                    Should be a valid email address.
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-label position="floating">Password</ion-label>
+                  <ion-input
+                    type="password"
+                    ngModel
+                    name="password"
+                    required
+                    minlength="6"
+                    #passwordCtrl="ngModel"
+                  ></ion-input>
+                </ion-item>
+                <ion-item
+                  *ngIf="!passwordCtrl.valid && passwordCtrl.touched"
+                  lines="none"
+                >
+                  <ion-label>
+                    Should at least be 6 characters long.
+                  </ion-label>
+                </ion-item>
+                <ion-item lines="none">
+                  <ion-label (click)="resetPassword()" style="margin-top: 0; font-size: x-small;">Forgot Password?</ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size-sm="6" offset-sm="3">
+              <ion-button
+                type="button"
+                color="light"
+                fill="clear"
+                expand="block"
+                (click)="onSwitchAuthMode()"
+              >
+                Switch to {{ isLogin ? 'Signup' : 'Login' }}
+              </ion-button>
+              <ion-button
+                type="submit"
+                color="primary"
+                expand="block"
+                [disabled]="!f.valid"
+              >
+                {{ isLogin ? 'Login' : 'Signup' }}
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </form>
+    </div>
+  </div>
+</ion-content>

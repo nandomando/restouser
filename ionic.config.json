@@ -1,5 +1,8 @@
 {
   "name": "resto00",
-  "integrations": {},
+  "integrations": {
+    "cordova": {},
+    "capacitor": {}
+  },
   "type": "angular"
 }

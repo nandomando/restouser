@@ -1,0 +1,45 @@
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-md="6" offset-md="3" class="ion-text-center" *ngIf="isLoading">
+        <div class="wrapper">
+          <div class="container-text">
+            <ion-spinner color="primary"></ion-spinner>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col
+        size-md="6"
+        offset-md="3"
+        *ngIf="!isLoading &&  relevantusercard.length <= 0"
+        class="ion-text-center"
+      >
+      <div class="wrapper">
+        <div class="container-text">
+          <p>Please add a fidelity card!</p>
+        </div>
+      </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngFor="let card of relevantusercard ">
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
+        <ion-item >
+          <ion-thumbnail slot="start">
+            <ion-img [src]="card.photo"></ion-img>
+          </ion-thumbnail>
+          <ion-label>
+            <ion-card-title>{{ card.name }}</ion-card-title>
+            <div style="display: flex; justify-content: space-between;">
+              <ion-card-subtitle>{{ card.address }}</ion-card-subtitle>
+              <p> {{ card.points }} /10 </p>
+            </div>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
