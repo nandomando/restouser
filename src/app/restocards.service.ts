@@ -49,8 +49,5 @@ export class RestocardsService {
         this._restocards.next(restocards);
         // return [];
       });
-      // tap(places => {
-      //   this._restocards.next(places);
-      // });
     }
 }

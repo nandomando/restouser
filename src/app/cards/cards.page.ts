@@ -3,7 +3,6 @@ import { UsercardsService } from '../usercards.service';
 import { Usercard } from '../usercard.model';
 import { Subscription } from 'rxjs';
 
-import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-cards',
@@ -14,21 +13,16 @@ export class CardsPage implements OnInit, OnDestroy {
 
 
   loadedusercard: Usercard[];
-  listedLoadedusercard: Usercard[];
-  relevantusercard: Usercard[];
   isLoading = false;
   private cardsSub: Subscription;
 
   constructor(
     private usercardsService: UsercardsService,
-    private authService: AuthService
   ) {}
 
   ngOnInit() {
     this.cardsSub = this.usercardsService.usercards.subscribe(cards => {
       this.loadedusercard = cards;
-      this.relevantusercard = this.loadedusercard;
-      this.listedLoadedusercard = this.relevantusercard.slice(1);
     });
   }
 

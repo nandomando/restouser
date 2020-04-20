@@ -1,16 +1,48 @@
 <ion-header>
-  <ion-toolbar>
-    <div style="display: flex; justify-content: space-between;">
-      <div style="width: 72px;"></div>
-      <ion-title class="ion-text-center"> Logout</ion-title>
-      <ion-item lines="none" (click)="onLogout()" button>
-        <ion-icon name="exit" slot="end"></ion-icon>
-      </ion-item>
-    </div>
-  </ion-toolbar>
+
 </ion-header>
 
 <ion-content>
-
+  <ion-grid style="padding: 0;">
+    <ion-row>
+      <ion-col size-md="6" offset-md="3" class="ion-text-center" *ngIf="isLoading">
+        <div class="wrapper">
+          <div class="container-text">
+            <ion-spinner color="primary"></ion-spinner>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   
+  <div *ngIf="!isLoading" >
+
+    <div class="top-container-info-user">
+      <ion-grid *ngFor="let e of loadeduserinfo">
+        <ion-row>
+          <ion-col class="ion-text-center" style="height: 40vh; display: flex; flex-direction: column; justify-content: center;">
+            <div style="margin: auto;">
+              <p style="color: white;"> {{e.name}} </p>
+              <ion-avatar style="width: 150px; height: 150px;">
+                <ion-img [src]="e.photo"></ion-img>
+              </ion-avatar>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <div class="bottom-container-info-user">
+      <ion-toolbar>
+        <div style="display: flex; justify-content: space-between;">
+          <div style="width: 72px;"></div>
+          <ion-title class="ion-text-center"> Logout</ion-title>
+          <ion-item lines="none" (click)="onLogout()" button>
+            <ion-icon name="exit" slot="end"></ion-icon>
+          </ion-item>
+        </div>
+      </ion-toolbar>
+    </div>
+  </div>
+
 </ion-content>

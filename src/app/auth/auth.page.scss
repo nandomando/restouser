@@ -10,17 +10,21 @@
     justify-content: stretch;
 }
 
-.hero {
+.hero-form-input {
     opacity: 0.87;
 }
 
-// .logo {
-//     content: url('../img/logorestoo.png');
-// }
+.logo {
+    content: url('logoresto.png');
+    width: 300px;
+}
 
 
 .container-top {
     height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .container-form {
     height: 100%;

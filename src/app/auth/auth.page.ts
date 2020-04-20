@@ -5,6 +5,7 @@ import { LoadingController, AlertController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 
 import { AuthService, AuthResponseData } from './auth.service';
+import { UserinfoService } from '../userinfo.service';
 
 @Component({
   selector: 'app-auth',
@@ -12,22 +13,22 @@ import { AuthService, AuthResponseData } from './auth.service';
   styleUrls: ['./auth.page.scss']
 })
 export class AuthPage implements OnInit {
+
   isLoading = false;
   isLogin = true;
   emailstring: string;
+  currentuseremailinfo: string;
+
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
+    private userinfoService: UserinfoService
   ) {}
 
   ngOnInit() {}
-
-  log() {
-    console.log('works');
-  }
 
   authenticate(email: string, password: string) {
     this.isLoading = true;
@@ -43,10 +44,15 @@ export class AuthPage implements OnInit {
         }
         authObs.subscribe(
           resData => {
-            console.log(resData);
+            this.currentuseremailinfo = resData.email;
             this.isLoading = false;
             loadingEl.dismiss();
-            this.router.navigateByUrl('/tabs/tab/home');
+            if (resData.registered) {
+              this.router.navigateByUrl('/tabs/tab/home');
+            } else {
+              this.userinfoService.createuserinfo(this.currentuseremailinfo);
+              this.router.navigateByUrl('/tabs/tab/home');
+            }
           },
           errRes => {
             loadingEl.dismiss();
@@ -68,6 +74,7 @@ export class AuthPage implements OnInit {
   onSwitchAuthMode() {
     this.isLogin = !this.isLogin;
   }
+
 
   emailgetter(ev) {
     this.emailstring = ev.target.value;

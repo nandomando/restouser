@@ -14,6 +14,7 @@ export interface AuthResponseData {
   expiresIn: string;
   localId: string;
   registered?: boolean;
+  displayName?: string;
 }
 
 @Injectable({
@@ -117,12 +118,12 @@ export class AuthService implements OnDestroy {
     ).pipe(tap(this.setUserData.bind(this)));
   }
 
-  resetpassword(email: string) {
+  resetpassword(emailstring: string) {
     return this.http.post<AuthResponseData>(
       `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${
         environment.firebaseAPIKey
       }`,
-      { requestType: 'PASSWORD_RESET', email}
+      { requestType: 'PASSWORD_RESET', emailstring}
     ).subscribe(() => {
       this.alertCtrl
       .create({
