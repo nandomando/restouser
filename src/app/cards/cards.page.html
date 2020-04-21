@@ -35,7 +35,12 @@
             <ion-img [src]="card.photo"></ion-img>
           </ion-thumbnail>
           <ion-label>
-            <ion-card-title>{{ card.name }}</ion-card-title>
+            <div class="container-title-user-cards" style="display: flex; justify-content: space-between;" >
+              <ion-card-title>{{ card.name }}</ion-card-title>
+              <div *ngIf="card.freemeal" style="align-self: flex-end;">
+                <p style="color: red;">Free meal!</p>
+              </div>
+            </div>
             <div style="display: flex; justify-content: space-between;">
               <ion-card-subtitle>{{ card.address }}</ion-card-subtitle>
               <p> {{ card.points }} /10 </p>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { Userinfo } from './userinfo.model';
 import { take, map, tap, switchMap } from 'rxjs/operators';
 
@@ -66,7 +66,6 @@ export class UserinfoService {
           );
         }
       }
-         console.log(userinfoarr);
          return userinfoarr;
     }),
     tap(userinfos => {
@@ -94,8 +93,8 @@ export class UserinfoService {
       }
       newUserinfo = new Userinfo(
         Math.random().toString(),
-        'https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
-        'Name',
+        'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
+        'Your Name',
         email,
         fetchedUserId
       );
@@ -127,6 +126,69 @@ export class UserinfoService {
       });
     });
   }
+
+  getUserinfo(id: string) {
+    return this.authService.token.pipe(
+      take(1),
+      switchMap(token => {
+        return this.http.get<UserData>(
+          `https://resto-57119.firebaseio.com/usersinfo/${id}.json?auth=${token}`
+        );
+      }),
+      map(infoData => {
+        return new Userinfo(
+          id,
+          infoData.photo,
+          infoData.name,
+          infoData.email,
+          infoData.userId,
+        );
+      })
+    );
+  }
+
+  updateUserInfo(userInfoId: string, name: string, photo: string) {
+    // const uploadData = new FormData();
+    // uploadData.append('image', photo);
+
+    let updatedUserInfo: Userinfo[];
+    let fetchedToken: string;
+    return this.authService.token.pipe(
+      take(1),
+      switchMap(token => {
+        fetchedToken = token;
+        return this.usersinfo;
+      }),
+      take(1),
+      switchMap(userinfo => {
+        if (!userinfo || userinfo.length <= 0) {
+          return this.fetchUserInfo();
+        } else {
+          return of(userinfo);
+        }
+      }),
+      switchMap(userinfo => {
+        const updatedInfouserIndex = userinfo.findIndex(user => user.id === userInfoId);
+        updatedUserInfo = [...userinfo];
+        const oldUserinfo = updatedUserInfo[updatedInfouserIndex];
+        updatedUserInfo[updatedInfouserIndex] = new Userinfo(
+          oldUserinfo.id,
+          photo,
+          name,
+          oldUserinfo.email,
+          oldUserinfo.userId,
+        );
+        return this.http.put(
+          `https://resto-57119.firebaseio.com/usersinfo/${userInfoId}.json?auth=${fetchedToken}`,
+          { ...updatedUserInfo[updatedInfouserIndex], id: null }
+        );
+      }),
+      tap(() => {
+        this._usersInfo.next(updatedUserInfo);
+      })
+    );
+  }
+
 
 
 }

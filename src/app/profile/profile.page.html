@@ -16,32 +16,37 @@
   </ion-grid>
   
   <div *ngIf="!isLoading" >
+    <div *ngFor="let e of loadeduserinfo">
+      <div class="top-container-info-user">
+        <ion-grid >
+          <ion-row>
+            <ion-col class="ion-text-center" style="height: 40vh; display: flex; flex-direction: column; justify-content: center;">
+              <div style="margin: auto;">
+                <h1 style="color: white; font-size: 35px;">Welcome!</h1>
+                <ion-avatar style="width: 150px; height: 150px;">
+                  <ion-img [src]="e.photo"></ion-img>
+                </ion-avatar>
+                <p style="color: white;"> {{e.name}} </p>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
 
-    <div class="top-container-info-user">
-      <ion-grid *ngFor="let e of loadeduserinfo">
-        <ion-row>
-          <ion-col class="ion-text-center" style="height: 40vh; display: flex; flex-direction: column; justify-content: center;">
-            <div style="margin: auto;">
-              <p style="color: white;"> {{e.name}} </p>
-              <ion-avatar style="width: 150px; height: 150px;">
-                <ion-img [src]="e.photo"></ion-img>
-              </ion-avatar>
-            </div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </div>
-
-    <div class="bottom-container-info-user">
-      <ion-toolbar>
-        <div style="display: flex; justify-content: space-between;">
-          <div style="width: 72px;"></div>
-          <ion-title class="ion-text-center"> Logout</ion-title>
-          <ion-item lines="none" (click)="onLogout()" button>
-            <ion-icon name="exit" slot="end"></ion-icon>
-          </ion-item>
-        </div>
-      </ion-toolbar>
+      <div class="bottom-container-info-user">
+        <!-- <ion-item lines="none">
+          <ion-label> {{e.email}} </ion-label>
+        </ion-item> -->
+        <ion-item lines="none">
+          <ion-label> Promos </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label (click)="onEdit(e.id)" > Settings </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label (click)="onLogout()" > Logout </ion-label>
+        </ion-item>
+      </div>
     </div>
   </div>
 

@@ -3,6 +3,7 @@ import { AuthService } from '../auth/auth.service';
 import { UserinfoService } from '../userinfo.service';
 import { Userinfo } from '../userinfo.model';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -18,7 +19,8 @@ export class ProfilePage implements OnInit, OnDestroy {
 
   constructor(
     private userinfoService: UserinfoService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -27,10 +29,8 @@ export class ProfilePage implements OnInit, OnDestroy {
     });
   }
 
-  test() {
-    // // this.userinfoService.fetchUserinfos();
-    // this.userinfoService.getUserInfo();
-
+  onEdit(userinfoId: string) {
+    this.router.navigate(['/', 'tabs', 'tab', 'profile', 'edit-profile', userinfoId]);
   }
 
   ionViewWillEnter() {

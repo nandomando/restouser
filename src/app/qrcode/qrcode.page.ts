@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
-import { Plugins } from '@capacitor/core';
-import { from } from 'rxjs';
-import { map } from 'rxjs/operators';
-
 
 @Component({
   selector: 'app-qrcode',
