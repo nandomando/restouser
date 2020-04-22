@@ -10,6 +10,7 @@ export class QrcodePage implements OnInit {
 
   createdCode = null;
   uId = null;
+  isLoading = false;
 
   userId = this.authService.userId.subscribe(data => {
     this.uId = data;
@@ -20,12 +21,14 @@ export class QrcodePage implements OnInit {
   constructor( private authService: AuthService) { }
 
   ngOnInit() {
+    this.isLoading = true;
     this.createCode();
+    this.isLoading = false;
   }
 
   createCode() {
     this.createdCode = this.uId;
-    console.log(this.createdCode);
+    // console.log(this.createdCode);
   }
 
 }

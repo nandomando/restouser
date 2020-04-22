@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserinfoService } from 'src/app/userinfo.service';
 import { NavController, LoadingController, AlertController } from '@ionic/angular';
+import { switchMap } from 'rxjs/operators';
 
 function base64toBlob(base64Data, contentType) {
   contentType = contentType || '';
@@ -27,20 +28,6 @@ function base64toBlob(base64Data, contentType) {
   return new Blob(byteArrays, { type: contentType });
 }
 
-
-// function getBase64(event) {
-//   const me = this;
-//   const file = event.target.files[0];
-//   const reader = new FileReader();
-//   reader.readAsDataURL(file);
-//   reader.onload = () => {
-//     // me.modelvalue = reader.result;
-//     console.log(reader.result);
-//   };
-//   reader.onerror = (error) => {
-//     console.log('Error: ', error);
-//   };
-// }
 
 @Component({
   selector: 'app-edit-profile',
@@ -82,10 +69,11 @@ export class EditProfilePage implements OnInit, OnDestroy {
                 updateOn: 'blur',
                 validators: [Validators.required, Validators.maxLength(18)]
               }),
-              photo: new FormControl(this.userinfo.photo, {
+              photo: new FormControl(null)
+                // {
                 // updateOn: 'blur',
-                validators: [Validators.required]
-              })
+                // validators: [Validators.required]
+              // })
             });
             this.isLoading = false;
           },
@@ -121,15 +109,18 @@ export class EditProfilePage implements OnInit, OnDestroy {
       })
       .then(loadingEl => {
         loadingEl.present();
-        console.log(this.form.get('photo').value);
-        // this.changeImage(this.form.get('photo').value);
         this.userinfoService
-          .updateUserInfo(
-            this.userinfo.id,
-            this.form.value.name,
-            // this.form.value.photo)
-            this.form.get('photo').value.name
-          )
+        .uploadImage(this.form.get('photo').value)
+        .pipe(
+          switchMap( uploadRes => {
+            return this.userinfoService
+              .updateUserInfo(
+                this.userinfo.id,
+                this.form.value.name,
+                uploadRes.imageUrl
+              );
+          })
+        )
           .subscribe(() => {
             loadingEl.dismiss();
             this.form.reset();
@@ -162,12 +153,6 @@ export class EditProfilePage implements OnInit, OnDestroy {
     this.form.patchValue({ photo: imageFile });
   }
 
-
-  // changeImage(image: File) {
-  //   const uploadData = new FormData();
-  //   uploadData.append('image', image);
-  //   console.log(uploadData);
-  // }
 
 
 }

@@ -93,7 +93,8 @@ export class UserinfoService {
       }
       newUserinfo = new Userinfo(
         Math.random().toString(),
-        'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
+        // tslint:disable-next-line: max-line-length
+        'https://firebasestorage.googleapis.com/v0/b/resto-57119.appspot.com/o/images%2F29e16426-cd74-4d7d-9282-e0dbf12916e2-icon.jpg?alt=media&token=29e16426-cd74-4d7d-9282-e0dbf12916e2',
         'Your Name',
         email,
         fetchedUserId
@@ -148,8 +149,6 @@ export class UserinfoService {
   }
 
   updateUserInfo(userInfoId: string, name: string, photo: string) {
-    // const uploadData = new FormData();
-    // uploadData.append('image', photo);
 
     let updatedUserInfo: Userinfo[];
     let fetchedToken: string;
@@ -185,6 +184,22 @@ export class UserinfoService {
       }),
       tap(() => {
         this._usersInfo.next(updatedUserInfo);
+      })
+    );
+  }
+
+  uploadImage(image: File) {
+    const uploadData = new FormData();
+    uploadData.append('image', image);
+
+    return this.authService.token.pipe(
+      take(1),
+      switchMap(token => {
+        return this.http.post<{ imageUrl: string; imagePath: string }>(
+          'https://us-central1-resto-57119.cloudfunctions.net/storeImage',
+          uploadData,
+          { headers: { Authorization: 'Bearer ' + token } }
+        );
       })
     );
   }

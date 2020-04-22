@@ -6,6 +6,18 @@
   }
 
 
-  // .qrcode img {
-  //   width: 300px;
-  // }
+  .wrapper-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+    }
+    
+    .container-text {
+        width: 250px;
+        text-align: center;
+    }
+
+    .qrcode {
+      width: 200px;
+    }
