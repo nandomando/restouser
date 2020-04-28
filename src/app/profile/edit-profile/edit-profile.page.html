@@ -52,7 +52,6 @@
       <ion-row>
         <ion-col size-sm="6" offset-sm="3">
           <app-image-picker
-            [showPreview]="form.value.photo"
             (imagePick)="onImagePicked($event)"
           ></app-image-picker>
         </ion-col>
@@ -64,7 +63,7 @@
             expand="block"
             color="primary"
             (click)="onUpdateUserInfo()"
-            [disabled]="!form.valid || !form.get('photo').value"
+            [disabled]="!form.valid"
           >Update</ion-button>
         </ion-col>
       </ion-row>

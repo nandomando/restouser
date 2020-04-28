@@ -47,7 +47,7 @@ export class EditProfilePage implements OnInit, OnDestroy {
     private navCtrl: NavController,
     private router: Router,
     private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
   ) { }
 
 
@@ -109,6 +109,8 @@ export class EditProfilePage implements OnInit, OnDestroy {
       })
       .then(loadingEl => {
         loadingEl.present();
+        console.log(this.form.value.photo);
+        console.log(this.form.get('photo').value);
         this.userinfoService
         .uploadImage(this.form.get('photo').value)
         .pipe(
@@ -129,12 +131,6 @@ export class EditProfilePage implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy() {
-    if (this.userinfoSub) {
-      this.userinfoSub.unsubscribe();
-    }
-  }
-
   onImagePicked(imageData: string | File) {
     let imageFile;
     if (typeof imageData === 'string') {
@@ -151,6 +147,12 @@ export class EditProfilePage implements OnInit, OnDestroy {
       imageFile = imageData;
     }
     this.form.patchValue({ photo: imageFile });
+  }
+
+  ngOnDestroy() {
+    if (this.userinfoSub) {
+      this.userinfoSub.unsubscribe();
+    }
   }
 
 
