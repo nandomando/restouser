@@ -27,7 +27,7 @@ export class HomePage implements OnInit, OnDestroy {
   filterseachedRestocards: Restocard[];
   private restocardsSub: Subscription;
   private usercardSub: Subscription;
-  // private filterrestocardsub: Restocard[];
+  private filterrestocardsub: Restocard[];
 
   constructor(
     private http: HttpClient,

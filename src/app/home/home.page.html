@@ -33,7 +33,7 @@
         <ion-card>
           <ion-card-content style="text-align: left; padding: 0;">
             <ion-card-header style="padding: 0;">
-              <ion-img [src]="card.photo"></ion-img>
+              <ion-img [src]="card.imageUrl"></ion-img>
             </ion-card-header>
             <div style="padding: 10px; display: flex; justify-content: space-between;">
               <div>
@@ -41,7 +41,7 @@
                 <ion-card-subtitle>{{ card.address }}</ion-card-subtitle>
               </div>
               <ion-buttons slot="primary">
-                <ion-button (click)="createusercard(card.photo, card.name, card.address, card.userId)">
+                <ion-button (click)="createusercard(card.imageUrl, card.name, card.address, card.userId)">
                   <ion-icon name="add" slot="icon-only"></ion-icon>
                 </ion-button>
               </ion-buttons>
@@ -58,7 +58,7 @@
         <ion-card>
           <ion-card-content style="text-align: left; padding: 0;">
             <ion-card-header style="padding: 0;">
-              <ion-img [src]="card.photo"></ion-img>
+              <ion-img [src]="card.imageUrl"></ion-img>
             </ion-card-header>
             <div style="padding: 10px; display: flex; justify-content: space-between;">
               <div>
@@ -66,7 +66,7 @@
                 <ion-card-subtitle>{{ card.address }}</ion-card-subtitle>
               </div>
               <ion-buttons slot="primary">
-                <ion-button (click)="createusercard(card.photo, card.name, card.address, card.userId)">
+                <ion-button (click)="createusercard(card.imageUrl, card.name, card.address, card.userId)">
                   <ion-icon name="add" slot="icon-only"></ion-icon>
                 </ion-button>
               </ion-buttons>

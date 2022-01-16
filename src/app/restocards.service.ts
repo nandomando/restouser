@@ -5,7 +5,7 @@ import { take, map, tap, switchMap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
 interface CardFetch {
-  photo: string;
+  imageUrl: string;
   name: string;
   address: string;
   userId: string;
@@ -30,15 +30,17 @@ export class RestocardsService {
 
     fetchRestocartas() {
       return this.http.get<{ [key: string]: CardFetch }>(
-        `https://restorestaurant-5f11f.firebaseio.com/restocards.json?`
+        `https://restorestaurant-11270.firebaseio.com/restocards.json?`
       ).subscribe(resData => {
+        console.log(resData)
         const restocards = [];
         for (const key in resData) {
           if (resData.hasOwnProperty(key)) {
+            console.log(restocards);
             restocards.push(
               new Restocard(
                 key,
-                resData[key].photo,
+                resData[key].imageUrl,
                 resData[key].name,
                 resData[key].address,
                 resData[key].userId,
@@ -47,6 +49,7 @@ export class RestocardsService {
           }
         }
         this._restocards.next(restocards);
+        console.log(restocards);
         // return [];
       });
     }

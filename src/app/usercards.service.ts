@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 
 interface UserCardFetch {
   id: string;
-  photo: string;
+  imageUrl: string;
   name: string;
   address: string;
   points: number;
@@ -57,7 +57,7 @@ export class UsercardsService {
         if (resData.hasOwnProperty(key)) {
           Usercardarr.push(new Usercard(
             key,
-            resData[key].photo,
+            resData[key].imageUrl,
             resData[key].name,
             resData[key].address,
             resData[key].points,
@@ -79,7 +79,7 @@ export class UsercardsService {
 
 
   addUsercard(
-    photo: string,
+    imageUrl: string,
     name: string,
     address: string,
     restoId: string,
@@ -100,7 +100,7 @@ export class UsercardsService {
       }
       newUsercard = new Usercard(
         Math.random().toString(),
-        photo,
+        imageUrl,
         name,
         address,
         0,
