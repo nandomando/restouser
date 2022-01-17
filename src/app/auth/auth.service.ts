@@ -123,7 +123,7 @@ export class AuthService implements OnDestroy {
       `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${
         environment.firebaseAPIKey
       }`,
-      { requestType: 'PASSWORD_RESET', emailstring}
+      {requestType: "PASSWORD_RESET", email: emailstring}
     ).subscribe(() => {
       this.alertCtrl
       .create({

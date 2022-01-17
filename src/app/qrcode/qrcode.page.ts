@@ -28,7 +28,7 @@ export class QrcodePage implements OnInit {
 
   createCode() {
     this.createdCode = this.uId;
-    // console.log(this.createdCode);
+    console.log(this.createdCode);
   }
 
 }
